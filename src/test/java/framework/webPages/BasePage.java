@@ -2,6 +2,8 @@ package framework.webPages;
 
 import com.google.common.base.Function;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
@@ -11,7 +13,7 @@ import stepdefinition.SharedSD;
 import java.time.Duration;
 
 /**
- * Created by mohammadmuntakim
+ * Created by Amir
  */
 public class BasePage {
 
@@ -77,6 +79,35 @@ public class BasePage {
 		JavascriptExecutor js = (JavascriptExecutor) SharedSD.getDriver();
 		js.executeScript("window.scrollBy("+x+","+y+")"); //
 	}
+	public String webElementToString(By locator){
+		WebElement webElement =webAction( locator);
+		return webElement.getText().toString();
+	}
+	public int webElementToInt(By locator, String replaceTarget, String replacement){
+		WebElement webElement = webAction( locator);
+		String string = webElement.getText().toString();
+		string = string.replace(replaceTarget,replacement);
+		int intValue = Integer.parseInt(string);
+		return intValue;
+	}
+	public void scrollDownWithLoop(int scrollDownNumber){
+		for(int second = 0; ;second ++){
+			if(second >= 20){
+			break;
+			}
+			scrollDown(0,scrollDownNumber);
+		}
+	}
+//slides only right or left
+	public void slider(By locator, int left, int right){
+		WebElement slider = SharedSD.getDriver().findElement(locator);
+		Actions move = new Actions(SharedSD.getDriver());
+		Action action = (Action) move.dragAndDropBy(slider,left,right).build();
+		((Actions)action).perform();
+	}
+
+
+
 
 
 }

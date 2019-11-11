@@ -26,5 +26,5 @@ Feature: DarkSky
     And Verify highest equal to highest
 
   @test-4
-  Scenario: Verify timline is displayed in correct format
+  Scenario: Verify timeline is displayed in correct format
     Then I verify timeline is displayed with two hours incremented
